@@ -1,2 +1,12 @@
-<h1>Disciplines#new</h1>
-<p>Find me in app/views/disciplines/new.html.erb</p>
+<%= form_for(@discipline) do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %><br />
+  
+  <%= f.label :code, "Code" %>
+  <%= f.text_field :code %><br />
+  
+  <%= f.label :tpi, "TPI" %>
+  <%= f.text_field :tpi %><br />
+  
+  <%= f.submit "Submit" %>
+<% end %>
