@@ -12,6 +12,6 @@ end
 
 Then /^the discipline should be saved in the DB$/ do
   visit disciplines_path
-  responde.should contain "#{@params[:code]} - #{@params[:name]} (#{@params[:tpi]})"
+  response.should contain "#{@params[:code]} - #{@params[:name]} (#{@params[:tpi]})"
 end
 
