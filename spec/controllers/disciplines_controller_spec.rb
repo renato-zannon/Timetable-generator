@@ -29,17 +29,60 @@ describe DisciplinesController do
   end
   
   describe "GET 'create'" do
-                      
-    it "instantiates a new discipline with the provided parameters"     
-    it "saves the created discipline"
-    context "when the discipline is saved successfully" do
-      it "sets a 'success' flash message"
-      it "redirects to the disciplines index page"
+    let(:params) do {"name" => "Bases Matemáticas",
+                     "code" => "BC0001",
+                     "tpi"  => "4-0-6"} end
+    
+    let(:new_discipline) { mock_model('Discipline', params).as_null_object }
+    
+    before do
+      Discipline.stub(:new).and_return(new_discipline)
     end
+    
+    it "instantiates a new discipline with the provided parameters" do
+      Discipline.should_receive(:new).with(params).and_return(new_discipline)
+      post :create, :discipline => params
+    end
+        
+    it "saves the created discipline" do
+      new_discipline.should_receive(:save)
+      post :create, :discipline => params
+    end
+    
+    context "when the discipline is saved successfully" do
+      before do 
+        new_discipline.stub(:save).and_return(true)
+        post :create
+      end
+      
+      it "sets a 'success' flash message" do
+        flash[:notice].should =~ /success/
+      end
+      
+      it "redirects to the disciplines index page" do
+        response.should redirect_to :action => 'index'
+      end
+      
+    end
+    
     context "when the discipline fails to save" do
-      it "sets an instance variable with the previous parameters"
-      it "sets an error flash message"
-      it "renders the 'new' page"
+      before do 
+        new_discipline.stub(:save).and_return(false)
+        post :create, :discipline => params
+      end
+      
+      it "sets an instance variable with the previous parameters" do
+        assigns[:discipline].should eq new_discipline
+      end
+      
+      it "sets an error flash message" do
+        flash[:error].should =~ /error/
+      end
+      
+      it "renders the 'new' page" do
+        response.should render_template :new
+      end
+      
      end
   end
   
