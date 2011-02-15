@@ -7,4 +7,8 @@ class DisciplinesController < ApplicationController
   def create
   end
 
+  def index
+    @disciplines = Discipline.all
+  end
+  
 end
