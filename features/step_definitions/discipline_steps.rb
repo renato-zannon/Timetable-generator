@@ -11,6 +11,7 @@ When /^I add the discipline to the system$/ do
 end
 
 Then /^the discipline should be saved in the DB$/ do
-  pending # express the regexp above with the code you wish you had
+  visit disciplines_path
+  responde.should contain "#{@params[:code]} - #{@params[:name]} (#{@params[:tpi]})"
 end
 
