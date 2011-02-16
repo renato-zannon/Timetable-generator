@@ -1,8 +1,11 @@
 class Discipline < ActiveRecord::Base
   
   TPI_REGEX = /^(\d{1,2})-(\d{1,2})-(\d{1,2})$/
-  validates :tpi, :format => TPI_REGEX
+  CODE_REGEX = /\A(BC|MC|NH|EN)(\d{4})\Z$/
   
+  validates :tpi,  :format   => TPI_REGEX
+  validates :code, :format   => CODE_REGEX
+  validates :name, :presence => true
   def teoric_hours
     broken_tpi[0].to_i
   end

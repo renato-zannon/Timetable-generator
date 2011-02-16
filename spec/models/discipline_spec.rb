@@ -15,10 +15,29 @@ describe Discipline do
   it "is valid with valid attributes" do
     @discipline.should be_valid
   end
-    
+  
+  it "isn't valid without a name" do
+    invalid_names = [nil, '']
+    invalid_names.each do |name|
+      @discipline.name = name
+      @discipline.should_not be_valid
+    end
+  end
+  
+  it "isn't valid when the code isn't on the (BC|MC|NH|EN)0000 format" do
+    invalid_codes = [nil, '', "BCABCD", "XD1234"]
+    invalid_codes.each do |code|
+      @discipline.code = code
+      @discipline.should_not be_valid
+    end
+  end
+  
   it "isn't valid when tpi isn't on the T-P-I format" do
-    @discipline.tpi = "406"
-    @discipline.should_not be_valid
+    invalid_tpis = [nil, '', "406", "a-b-c"]
+    invalid_tpis.each do |tpi|
+      @discipline.tpi = tpi
+      @discipline.should_not be_valid
+    end
   end
     
   describe "#teoric_hours" do
