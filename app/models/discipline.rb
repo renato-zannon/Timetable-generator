@@ -3,7 +3,6 @@ class Discipline < ActiveRecord::Base
   TPI_REGEX = /^(\d{1,2})-(\d{1,2})-(\d{1,2})$/
   validates :tpi, :format => TPI_REGEX
   
-  
   def teoric_hours
     broken_tpi[0].to_i
   end
