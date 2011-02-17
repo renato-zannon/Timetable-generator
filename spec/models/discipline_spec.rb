@@ -16,8 +16,8 @@ describe Discipline do
     @discipline.should be_valid
   end
   
-  it "isn't valid without a name" do
-    invalid_names = [nil, '']
+  it "isn't valid with an invalid name" do
+    invalid_names = [nil, '', 'A'*51]
     invalid_names.each do |name|
       @discipline.name = name
       @discipline.should_not be_valid
