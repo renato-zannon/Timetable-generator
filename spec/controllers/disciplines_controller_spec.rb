@@ -106,7 +106,7 @@ describe DisciplinesController do
     
     context "when the discipline doesn't exist" do
       before do
-        Discipline.stub(:find).and_return @new_discipline
+        Discipline.stub(:find).and_return nil
         get :show, @params
       end
       
@@ -115,7 +115,7 @@ describe DisciplinesController do
       end
       
       it "redirects to the disciplines index page" do
-        response.should redirect_to disciplines_index
+        response.should redirect_to disciplines_path
       end     
     end
   end

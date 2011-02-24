@@ -20,5 +20,12 @@ class DisciplinesController < ApplicationController
   end
   
   def show
+    discipline = Discipline.find(params[:id])
+    if discipline.nil?
+      flash[:error] = "Discipline with id #{params[:id]} not found!"
+      redirect_to disciplines_path
+    else
+      @discipline = discipline
+    end
   end
 end
