@@ -19,4 +19,6 @@ class DisciplinesController < ApplicationController
     @disciplines = Discipline.all
   end
   
+  def show
+  end
 end

@@ -86,4 +86,37 @@ describe DisciplinesController do
      end
   end
   
+  describe "GET 'show'" do
+    before { @params ||= {:id => 1} }
+    
+    it "searches for the requested discipline ID" do
+      Discipline.should_receive(:find).with(@params[:id])
+      get :show, @params
+    end
+    
+    context "when the discipline exists" do
+      before { Discipline.stub(:find).and_return @new_discipline }
+      
+      it "sets an instance variable with the discipline's info" do
+        get :show, @params
+        assigns[:discipline].should == @new_discipline
+      end
+      
+    end
+    
+    context "when the discipline doesn't exist" do
+      before do
+        Discipline.stub(:find).and_return @new_discipline
+        get :show, @params
+      end
+      
+      it "sets an error flash message" do
+        flash[:error].should =~ /not found/
+      end
+      
+      it "redirects to the disciplines index page" do
+        response.should redirect_to disciplines_index
+      end     
+    end
+  end
 end
