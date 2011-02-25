@@ -1,0 +1,8 @@
+<h1><%= "#{@discipline.code} - #{@discipline.name}" %></h1>
+<h2><%= "TPI: #{@discipline.tpi}" %></h2>
+<h2>Groups:</h2>
+<ul>
+  <% @discipline.groups.each do |group| %>
+    <li><%= group.name %></li>
+  <% end %>
+</ul>
