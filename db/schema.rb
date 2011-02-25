@@ -10,12 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215144954) do
+ActiveRecord::Schema.define(:version => 20110225153958) do
 
   create_table "disciplines", :force => true do |t|
     t.text     "name"
     t.text     "code"
     t.text     "tpi"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "int_monday"
+    t.integer  "int_tuesday"
+    t.integer  "int_wednesday"
+    t.integer  "int_thursday"
+    t.integer  "int_friday"
+    t.integer  "int_saturday"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

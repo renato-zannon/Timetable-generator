@@ -6,6 +6,9 @@ class Discipline < ActiveRecord::Base
   validates :tpi,  :format   => TPI_REGEX,  :presence => true
   validates :code, :format   => CODE_REGEX, :presence => true
   validates :name, :length   => 1..50,      :presence => true
+
+  has_many :groups
+  
   def teoric_hours
     broken_tpi[0].to_i
   end
