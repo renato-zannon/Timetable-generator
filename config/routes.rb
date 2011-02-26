@@ -1,6 +1,8 @@
 UFABC::Application.routes.draw do
 
-  resources :disciplines
+  resources :disciplines do
+    resources :groups
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
