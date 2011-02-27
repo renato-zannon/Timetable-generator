@@ -1,9 +1,7 @@
 module GroupHelpers
   def parse_lessons_table(table)
-    lessons_table = {}
-    table.rows_hash.each do |day, lessons|
-      lessons = lessons.split(',')
-      lessons_table.merge(day => lessons)
+    table.rows_hash.merge(table.rows_hash) do |day, lessons|
+      lessons.split(',')
     end
   end
 end

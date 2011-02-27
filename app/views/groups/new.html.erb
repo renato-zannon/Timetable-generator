@@ -1,0 +1,13 @@
+<%= form_for(@group) do |f| %>
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %><br />
+  
+  <%= f.label :discipline, "Discipline" %>
+  <%= f.select :discipline, @discipline_options %><br />
+  
+  <%= f.fields_for "lessons" do |lessons_fields| -%>
+    <% lessons_boxes(lessons_fields) %>
+  <% end %>
+  
+  <%= f.submit "Submit" %>
+<% end %>
