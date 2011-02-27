@@ -4,9 +4,9 @@ Given /^a group named "([^"]*)" with the following lessons:$/ do |name, table|
 end
 
 When /^I add the group to the system$/ do
-  visit discipline_path(@discipline)
-  click_link 'Add new group'
+  visit new_group_path
   fill_in :name, :with => @group_params[:name]
+  select @discipline.name, :from => "Discipline"
   @group_params[lessons_table].each do |day, lessons|
     within day {lessons.each {|lesson| check lesson} }
   end
