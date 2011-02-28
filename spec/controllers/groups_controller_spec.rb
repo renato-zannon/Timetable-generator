@@ -21,7 +21,7 @@ describe GroupsController do
     context "when a discipline is received via params" do
       it "assigns the new group to the discipline" do
         group.should_receive('discipline=').with(discipline)
-        get :new, :discipline => discipline
+        get :new, :discipline_id => 1
       end
     end
   end

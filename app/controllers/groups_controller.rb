@@ -2,8 +2,8 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
-    @group.discipline = params[:discipline]
-    @discipline_options = Discipline.all.map { |d| [d.name, d.id] }
+    @group.discipline = Discipline.find(params[:discipline_id]) unless params[:discipline_id].nil?
+    @discipline_options = Discipline.all.map { |d| ["#{d.code} - #{d.name}", d.id] }
   end
   
   def create
