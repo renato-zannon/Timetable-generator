@@ -12,8 +12,10 @@ class Group < ActiveRecord::Base
   validates :lessons,    :presence => true, :lesson_table => true
   
   def lessons=(lessons)
-    lessons={} unless lessons.respond_to? '[]'
+    lessons = {} unless lessons.respond_to? '[]'
     week_days.each do |day|
+      lessons[day] = day_hash_to_array(lessons[day]) if lessons[day].kind_of? Hash
+      
       self.send("int_#{day}=", parse_int_from_lessons(lessons[day]) )
     end
   end
@@ -32,7 +34,11 @@ class Group < ActiveRecord::Base
   end
   
   def parse_lessons_from_int(int)
-    all_lessons.select.with_index { |lesson, idx| (int & 2**idx)==1 }
+    all_lessons.select.with_index { |lesson, idx| (int & 2**idx)==2**idx }
+  end
+  
+  def day_hash_to_array(day_hash)  
+    day_hash.reject{ |_, v| v==0 }.keys
   end
   
 end
