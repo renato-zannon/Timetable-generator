@@ -5,10 +5,12 @@ describe GroupsController do
   let(:group) { mock_model('Group').as_new_record.as_null_object }
   let(:discipline) { double('Discipline') }
   
-  describe "GET new" do
-    before do
+  before do
       Group.stub(:new).and_return(group)
-    end
+      Discipline.stub(:find).and_return discipline
+  end
+    
+  describe "GET new" do
     
     it "sets @group with a new group" do
       Group.should_receive(:new)
@@ -26,13 +28,9 @@ describe GroupsController do
   
   describe "POST create" do
     let(:group_params) do
-      { 'name'       => "A Diurno",
-        'lessons'    => {'monday' => ["08:00"]},
-        'discipline' => discipline }
-    end
-    
-    before do
-      Group.stub(:new).and_return(group)
+      { 'name'          => "A Diurno",
+        'lessons'       => {'monday' => ["08:00"]},
+        'discipline_id' => 1 }
     end
     
     it "instantiates a new group with the provided params" do
@@ -42,13 +40,13 @@ describe GroupsController do
     
     it "tries to save the group" do
       group.should_receive(:save)
-      post :create
+      post :create, :group => group_params
     end
     
     context "when the group is saved successfully" do
       before do
         group.stub(:save).and_return true
-        post :create
+        post :create, :group => group_params
       end
       
       it "sets a flash[:notice] message" do
@@ -63,7 +61,7 @@ describe GroupsController do
     context "when the group fails to save" do
       before do
         group.stub(:save).and_return false
-        post :create
+        post :create, :group => group_params
       end
       
       it "sets a flash[:error] message" do

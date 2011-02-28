@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   
   def create
     group = Group.new(params[:group])
+    group.discipline = Discipline.find(params[:group]['discipline_id'])
     if group.save == true
       flash[:notice] = "The group was created successfully!"
       redirect_to group
