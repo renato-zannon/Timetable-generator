@@ -38,7 +38,7 @@ class Group < ActiveRecord::Base
   end
   
   def day_hash_to_array(day_hash)  
-    day_hash.reject{ |_, v| v==0 }.keys
+    day_hash.reject{ |_, v| v.to_i==0 }.keys
   end
   
 end
