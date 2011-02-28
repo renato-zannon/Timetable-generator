@@ -4,7 +4,7 @@ class Discipline < ActiveRecord::Base
   CODE_REGEX = /\A(BC|MC|NH|EN)(\d{4})\Z$/
   
   validates :tpi,  :format   => TPI_REGEX,  :presence => true
-  validates :code, :format   => CODE_REGEX, :presence => true
+  validates :code, :format   => CODE_REGEX, :presence => true, :uniqueness => true
   validates :name, :length   => 1..50,      :presence => true
 
   has_many :groups

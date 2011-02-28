@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110226015931) do
+ActiveRecord::Schema.define(:version => 20110228224953) do
 
   create_table "disciplines", :force => true do |t|
     t.text     "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(:version => 20110226015931) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "disciplines", ["code"], :name => "index_disciplines_on_code", :unique => true
 
   create_table "groups", :force => true do |t|
     t.string   "name"
