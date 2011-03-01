@@ -1,0 +1,18 @@
+<table id="lessons">
+  <tr>
+    <td>Time</td>
+    <% week_days.each do |day| %>
+      <%= content_tag :th, day.capitalize %>
+    <% end %>
+  </tr>
+  <% all_lessons.each do |lesson| %>
+    <tr>
+      <%= content_tag :td, lesson %>
+      <% week_days.each do |day| %>
+        <%= content_tag :td do %>
+          <%= check_box_tag "group[lessons][#{day}][#{lesson}]" %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
