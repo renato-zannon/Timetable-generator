@@ -1,0 +1,21 @@
+<% timetable = timetable_hash(groups) %>
+<table id="timetable">
+  <tr>
+    <td>Time</td>
+    <% week_days.each do |day| %>
+      <%= content_tag :th, day.capitalize %>
+    <% end %>
+  </tr>
+  <% all_lessons.each do |lesson| %>
+    <% next if timetable.values.inject(&:merge)[lesson].nil? %>
+    <tr>
+      <%= content_tag :td, lesson %>
+      <% week_days.each do |day| %>
+        <%= content_tag :td do %>
+          <%= timetable[day][lesson].discipline.code unless timetable[day][lesson].nil? %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+          
