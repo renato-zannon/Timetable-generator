@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110228224953) do
+ActiveRecord::Schema.define(:version => 20110302180530) do
 
   create_table "disciplines", :force => true do |t|
     t.text     "name"
@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(:version => 20110228224953) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.integer  "int_monday"
-    t.integer  "int_tuesday"
-    t.integer  "int_wednesday"
-    t.integer  "int_thursday"
-    t.integer  "int_friday"
-    t.integer  "int_saturday"
+    t.integer  "int_monday",    :default => 0
+    t.integer  "int_tuesday",   :default => 0
+    t.integer  "int_wednesday", :default => 0
+    t.integer  "int_thursday",  :default => 0
+    t.integer  "int_friday",    :default => 0
+    t.integer  "int_saturday",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "discipline_id"
