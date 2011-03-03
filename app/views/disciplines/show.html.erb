@@ -4,6 +4,7 @@
 <ul>
   <% @discipline.groups.each do |group| %>
     <li><%= group.name %></li>
+    <%= render "shared/timetable", :groups => [group] %>
   <% end %>
 </ul>
 <%= link_to 'Add new group', new_discipline_group_path(@discipline) %>

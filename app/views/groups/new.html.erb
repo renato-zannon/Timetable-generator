@@ -6,9 +6,8 @@
   <%= f.label :discipline_id, "Discipline" %>
   <%= f.select :discipline_id, @discipline_options %><br />
   
-  <%= f.fields_for "lessons" do |lessons_fields| -%>
-    <% lessons_boxes(lessons_fields) %>
-  <% end %>
+  <%= render :partial => "lessons_input_form" %>
   
   <%= f.submit "Submit" %>
+  
 <% end %>

@@ -6,7 +6,7 @@ end
 When /^I add the group to the system$/ do
   visit new_group_path
   fill_in 'Name', :with => @group_params[:name]
-  select @discipline.name, :from => "Discipline"
+  select "#{@discipline.code} - #{@discipline.name}", :from => "Discipline"
   @group_params[:lessons].each do |day, lessons_on_day|
     lessons_on_day.each {|lesson| check field_with_id("group_lessons_#{day}_#{lesson}")}
   end

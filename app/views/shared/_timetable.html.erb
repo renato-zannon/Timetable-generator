@@ -1,0 +1,23 @@
+<% timetable = Timetable.new(groups) %>
+<table id="timetable">
+  <tr>
+    <td>Time</td>
+    <% week_days.each do |day| %>
+      <%= content_tag :th, day.capitalize %>
+    <% end %>
+  </tr>
+  <% all_lessons.each do |lesson| %>
+    <% break unless timetable.has_lessons_after(lesson) %>
+    <tr>
+      <%= content_tag :td, lesson %>
+      <% week_days.each do |day| %>
+        <td>
+          <% if timetable.has_group_on(day, lesson) %>
+            <%= timetable.group_on(day,lesson).discipline.code %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+          
