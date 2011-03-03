@@ -1,4 +1,4 @@
-<% timetable = timetable_hash(groups) %>
+<% timetable = Timetable.new(groups) %>
 <table id="timetable">
   <tr>
     <td>Time</td>
@@ -7,13 +7,15 @@
     <% end %>
   </tr>
   <% all_lessons.each do |lesson| %>
-    <% next if timetable.values.inject(&:merge)[lesson].nil? %>
+    <% break unless timetable.has_lessons_after(lesson) %>
     <tr>
       <%= content_tag :td, lesson %>
       <% week_days.each do |day| %>
-        <%= content_tag :td do %>
-          <%= timetable[day][lesson].discipline.code unless timetable[day][lesson].nil? %>
-        <% end %>
+        <td>
+          <% if timetable.has_group_on(day, lesson) %>
+            <%= timetable.group_on(day,lesson).discipline.code %>
+          <% end %>
+        </td>
       <% end %>
     </tr>
   <% end %>

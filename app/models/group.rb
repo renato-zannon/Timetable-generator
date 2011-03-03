@@ -14,22 +14,15 @@ class Group < ActiveRecord::Base
     l = {} unless l.respond_to? '[]'
     week_days.each do |day|
       l[day] = day_hash_to_array(l[day]) if l[day].kind_of? Hash
+      l[day] ||= Array.new
       self.send("int_#{day}=", IntTools.int_from_lessons(l[day]) )
     end
-    @lessons = l
   end
   
   def lessons
-    processed = week_days.inject({}) do |hash, day|
+    week_days.inject({}) do |hash, day|
       hash.merge Hash[day, IntTools.lessons_from_int(send "int_#{day}")]
     end
-    
-    if processed != @lessons
-      self.lessons=(@lessons)
-    end
-    
-    @lessons
-    
   end
   
   private
