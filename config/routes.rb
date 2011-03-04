@@ -5,6 +5,8 @@ UFABC::Application.routes.draw do
   end
   resources :groups
   
+  post 'best_timetable' => 'BestTimetable#new', :as => 'best_timetable', :via => :get
+  post 'best_timetable/generate' => 'BestTimetable#generate', :as => 'generate_best_timetable', :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
