@@ -2,14 +2,9 @@
 require 'spec_helper'
 
 describe Discipline do
-  let(:valid_params) do
-     {:name => "Bases Matemáticas",
-      :code => "BC0001",
-      :tpi  => "4-0-6"}
-  end
   
   before(:each) do
-    @discipline = Discipline.new(valid_params)
+    @discipline = Factory(:discipline)
   end
   
   it "is valid with valid attributes" do

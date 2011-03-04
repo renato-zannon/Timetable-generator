@@ -2,21 +2,8 @@ require 'spec_helper'
 
 describe Group do
   
-  before { mock_model('Discipline') }
-  
-  let(:valid_params) do
-    {:name       => "A Diurno",
-     :discipline => Discipline.new,
-     :lessons    => lessons}
-  end
-  
-  let(:lessons) do
-    {'monday'  => ["08:00","08:30","09:00","09:30"],
-     'thursday' => ["10:00","10:30","11:00","11:30"]}
-  end
-  
   before(:each) do
-    @group = Group.new(valid_params)
+    @group = Factory(:group)
   end
   
   it "is valid with valid params" do

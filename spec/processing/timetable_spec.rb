@@ -5,18 +5,8 @@ describe Timetable do
   include GroupConstants
     
   before do
-    @group = double('Group')
-    @lessons = {"monday"  =>["08:00", "08:30", "09:00", "09:30"], 
-              "tuesday"   =>["08:00", "08:30", "09:00", "09:30"], 
-              "wednesday" =>["08:00", "08:30", "09:00", "09:30"], 
-              "thursday"  =>["08:00", "08:30", "09:00", "09:30"], 
-              "friday"    =>["08:00", "08:30", "09:00", "09:30"], 
-              "saturday"  =>["08:00", "08:30", "09:00", "09:30"]}
-    
-    @group.stub(:lessons).and_return @lessons
-    week_days.each do |day|
-      @group.stub("int_#{day}").and_return 15
-    end
+    @group     = Factory.stub(:group)
+    @lessons   = Factory(:lessons)
     @timetable = Timetable.new [@group]
   end
   
@@ -47,7 +37,7 @@ describe Timetable do
       end
       
       it "returns false if there's no lesson after on any day" do
-        @timetable.has_lessons_after("10:00").should be_false
+        @timetable.has_lessons_after("12:00").should be_false
       end
     end
   end

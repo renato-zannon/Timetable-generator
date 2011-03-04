@@ -3,13 +3,8 @@ require 'spec_helper'
 
 describe 'disciplines/show.html.erb' do
   before(:each) do
-    @discipline = mock_model('Discipline', :name => "Bases matemáticas",
-                                           :code => "BC0001",
-                                           :tpi  => "4-0-6")
-                                           
-    group = mock_model('Group', :name => "A Diurno").as_null_object
+    @discipline = Factory.stub(:discipline)
     
-    @discipline.stub(:groups).and_return([group]*4)
     assign(:discipline, @discipline)
     stub_template "shared/_timetable.html.erb" => ""
   end

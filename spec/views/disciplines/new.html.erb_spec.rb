@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'disciplines/new.html.erb' do
   before(:each) do 
-    assign(:discipline, mock_model('Discipline').as_null_object.as_new_record)
+    assign(:discipline, Factory.build(:discipline))
     render
   end
   

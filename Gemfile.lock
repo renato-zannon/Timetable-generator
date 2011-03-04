@@ -44,6 +44,10 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    factory_girl (2.0.0.beta2)
+    factory_girl_rails (1.1.beta1)
+      factory_girl (~> 2.0.0.beta)
+      rails (>= 3.0.0)
     gherkin (2.3.3)
       json (~> 1.4.6)
     i18n (0.5.0)
@@ -108,6 +112,7 @@ PLATFORMS
 DEPENDENCIES
   autotest-rails
   cucumber-rails
+  factory_girl_rails (>= 1.1beta)
   rails (= 3.0.4)
   rspec-rails
   sqlite3
