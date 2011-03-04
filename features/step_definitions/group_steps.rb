@@ -18,5 +18,12 @@ Then /^the group should be listed in the discipline's groups$/ do
   response.should contain @group_params[:name]
 end
 
+Given /^a saved group named "([^"]*)", bound to "([^"]*)", and with the following lessons:$/ do |name, discipline, table|
+  Given "a group named \"#{name}\" with the following lessons:", table
+  @group = Group.new(@group_params)
+  @group.discipline = Discipline.find_by_code(discipline)
+  @group.save!
+end
+
 World(GroupHelpers)
 
