@@ -8,4 +8,3 @@ Then /^I should see a timetable containing the disciplines:$/ do |table|
  codes = table.raw.flatten
  codes.each { |code| response.should contain code}
 end
-

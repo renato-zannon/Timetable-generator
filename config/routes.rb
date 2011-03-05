@@ -1,14 +1,13 @@
 UFABC::Application.routes.draw do
 
-  get "best_timetable/new"
 
   resources :disciplines do
     resources :groups
   end
   resources :groups
   
-  match 'best_timetable' => 'BestTimetable#new', :as => 'best_timetable', :via => :get
-  match 'best_timetable/generate' => 'BestTimetable#generate', :as => 'generate_best_timetable', :via => :post
+  match 'best_timetable' => 'best_timetable#new', :as => 'best_timetable', :via => :get
+  match 'best_timetable/generate' => 'best_timetable#generate', :as => 'generate_best_timetable', :via => :post
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
