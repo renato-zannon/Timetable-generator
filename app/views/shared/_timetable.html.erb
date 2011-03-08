@@ -1,4 +1,4 @@
-<% timetable = Timetable.new(groups) %>
+<% timetable ||= Timetable.new(groups) %>
 <table id="timetable">
   <tr>
     <td>Time</td>
