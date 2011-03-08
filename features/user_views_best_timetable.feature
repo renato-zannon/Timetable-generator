@@ -29,9 +29,11 @@ Feature: User views best timetable
       | thursday  | 10:00,10:30,11:00,11:30 |
       | friday    |                         |
       | saturday  |                         |
-    When I check "BC0001" from the list of disciplines
+    When I go to the /best_timetable page
+    And I check "BC0001" from the list of disciplines
     And I check "BC0002" from the list of disciplines
     And I check "BC0003" from the list of disciplines
+    And I press "Submit" 
     Then I should see a timetable containing the disciplines:
       | BC0001 |
       | BC0002 |
