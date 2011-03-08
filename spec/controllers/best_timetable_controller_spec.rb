@@ -73,7 +73,7 @@ describe BestTimetableController do
       it "sets the @timetable variable with the best timetable" do
         BestTimetable.stub(:generate).and_return :flag
         post :generate, :disciplines => codes
-        assigns[:timetable].should be :flag
+        assigns[:timetables].should be :flag
       end
     end
   end
