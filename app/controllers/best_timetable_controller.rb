@@ -15,8 +15,7 @@ class BestTimetableController < ApplicationController
       @disciplines = Discipline.all
       render :new
     else
-      @timetable = BestTimetable.generate(disciplines)
-      redirect_to :action => :new
+      @timetables = BestTimetable.generate(disciplines)
     end
   end
 end
