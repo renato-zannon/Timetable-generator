@@ -1,0 +1,31 @@
+a {
+  color: #006633;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #fecc01;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  width: 700px;
+}
+
+#content {
+  text-align: center;
+}
+
+#title {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.timetable tr.time {
+  font-size: 0.7em;
+  line-height: 0.5em;
+}
