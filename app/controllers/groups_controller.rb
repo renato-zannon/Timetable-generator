@@ -1,27 +1,25 @@
 class GroupsController < ApplicationController
 
   def new
-    @group = Group.new
-    @group.discipline = Discipline.find(params[:discipline_id]) unless params[:discipline_id].nil?
-    @discipline_options = Discipline.all.map { |d| ["#{d.code} - #{d.name}", d.id] }
+    @group = Group.new(:discipline_id => params[:discipline_id])
+    @discipline_options = Discipline.all.map do |discipline|
+      ["#{discipline.code} - #{discipline.name}", discipline.id]
+    end
   end
-  
+
   def create
     group = Group.new(params[:group])
-    group.discipline = Discipline.find(params[:group]['discipline_id'])
     if group.save == true
       flash[:notice] = "The group was created successfully!"
       redirect_to group
     else
       flash[:error] = "There was an error while saving the group!"
-      @group = group
-      @discipline_options = Discipline.all.map { |d| [d.name, d.id] }
       render :action => :new
     end
   end
 
   def show
-    @group = Group.find(params[:id])    
+    @group = Group.find(params[:id])
   end
 
   def index

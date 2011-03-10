@@ -18,14 +18,14 @@ class DisciplinesController < ApplicationController
   def index
     @disciplines = Discipline.all
   end
-  
+
   def show
-    discipline = Discipline.find(params[:id])
-    if discipline.nil?
-      flash[:error] = "Discipline with id #{params[:id]} not found!"
-      redirect_to disciplines_path
+    id = params[:id]
+    if Discipline.exists? id
+      @discipline = Discipline.find id
     else
-      @discipline = discipline
+      flash[:error] = "Discipline with id #{id} not found!"
+      redirect_to disciplines_path
     end
   end
 end
