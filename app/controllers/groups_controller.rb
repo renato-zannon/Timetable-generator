@@ -19,4 +19,13 @@ class GroupsController < ApplicationController
       render :action => :new
     end
   end
+
+  def show
+    @group = Group.find(params[:id])    
+  end
+
+  def index
+    @groups = Group.all(:joins => :discipline, :order => 'disciplines.name')
+  end
+
 end
