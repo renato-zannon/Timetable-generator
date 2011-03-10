@@ -3,8 +3,8 @@ class BestTimetable
   def BestTimetable.generate(disciplines)
     return nil if disciplines.nil? or disciplines.empty?
     all_groups = all_groups_from(disciplines)
-    valid_timetables = all_valid_timetables_from(all_groups)
-    valid_timetables.sort_by{ |timetable| -timetable.score }
+    valid_timetables = all_valid_timetables_from(all_groups, disciplines.count)
+    valid_timetables.sort_by(&:score).reverse
   end
 
   private
@@ -16,9 +16,9 @@ class BestTimetable
     end
   end
 
-  def BestTimetable.all_valid_timetables_from(groups)
+  def BestTimetable.all_valid_timetables_from(groups, disciplines_count)
     return nil unless groups.respond_to? :combination
-    groups.combination(Discipline.count).inject([]) do |timetables, comb|
+    groups.combination(disciplines_count).inject([]) do |timetables, comb|
       timetable = Timetable.new(comb)
       timetables << timetable if timetable.valid?
       timetables

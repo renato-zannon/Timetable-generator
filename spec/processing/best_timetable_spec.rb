@@ -9,8 +9,8 @@ describe BestTimetable do
   describe '.generate' do
     it "returns the generated timetables in order" do
       timetables = {}
-      timetables[:good] = double('bad_timetable', :score => 100)
-      timetables[:bad]  = double('good_timetable', :score => 1)
+      timetables[:good] = double('good_timetable', :score => 100)
+      timetables[:bad]  = double('bad_timetable', :score => 1)
       BestTimetable.stub(:all_valid_timetables_from).and_return(timetables.values)
       BestTimetable.generate(@disciplines).first.should == timetables[:good]
       BestTimetable.generate(@disciplines).last.should == timetables[:bad]
