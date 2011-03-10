@@ -1,16 +1,15 @@
 <%= render :layout => 'layouts/timetable_layout' do %>
-<% timetable ||= Timetable.new(groups) %>
-<% all_lessons.each do |lesson| %>
-  <tr class="time"><td><%= lesson %></td><td colspan=6><hr /></td></tr>
-  <% break unless timetable.has_lessons_after(lesson) %>
-  <tr><td>
-      <% week_days.each do |day| %>
-        <td>
-          <% if timetable.has_group_on(day, lesson) %>
-            <%= timetable.group_on(day,lesson).discipline.code %>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
+  <% timetable ||= Timetable.new(groups) %>
+  <% timetable.lessons_table.each do |lesson| %>
+    <tr class="time"><td><%= lesson %></td><td colspan=6><hr /></td></tr>
+    <tr><td>
+        <% week_days.each do |day| %>
+          <td>
+            <% if timetable.has_group_on(day, lesson) %>
+              <%= timetable.group_on(day,lesson).discipline.code %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
   <% end %>
-<% end %>

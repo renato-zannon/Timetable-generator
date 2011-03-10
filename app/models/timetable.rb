@@ -11,10 +11,26 @@ class Timetable
 
   def has_lessons_after(lesson, options = {})
     days = extract_days_from(options)
+    lesson_int = IntTools.int_from_lesson(lesson) 
     days.each do |day|
-      return true if IntTools.int_from_lesson(lesson) < int_for(day)
+      return true if lesson_int < int_for(day)
     end
     return false
+  end
+
+  def has_lessons_before(lesson, options = {})
+    days = extract_days_from(options)
+    mask = IntTools.int_from_lesson(lesson)-1
+    days.each do |day|
+      return true if int_for(day) & mask > 0
+    end
+    return false
+  end
+ 
+  def lessons_table
+    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson) }-1
+    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson) }+1
+    all_lessons[first_lesson_idx..last_lesson_idx]
   end
 
   def lessons_on(day)
