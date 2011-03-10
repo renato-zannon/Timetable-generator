@@ -1,5 +1,6 @@
 <ul>
 <% @disciplines.each do |discipline| %>
-  <li><%= "#{discipline.code} - #{discipline.name} (#{discipline.tpi})" %></li>
+  <li><%= link_to "#{discipline.code} - #{discipline.name} (#{discipline.tpi})", discipline %></li>
 <% end %>
 </ul>
+<%= link_to "New discipline", new_discipline_path %>

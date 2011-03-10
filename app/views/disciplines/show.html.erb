@@ -3,8 +3,7 @@
 <h2>Groups:</h2>
 <ul>
   <% @discipline.groups.each do |group| %>
-    <li><%= group.name %></li>
-    <%= render "shared/timetable", :groups => [group] %>
+    <li><%= link_to group.name, group %></li>
   <% end %>
 </ul>
 <%= link_to 'Add new group', new_discipline_group_path(@discipline) %>
