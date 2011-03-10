@@ -1,22 +1,12 @@
-<table class="timetable">
-  <thead>
-  <tr>
-    <th />
-    <% week_days.each do |day| %>
-      <%= content_tag :th, day.capitalize %>
-    <% end %>
-  </tr>
-</thead>
-<tbody>
+<%= render :layout => 'layouts/timetable_layout' do %>
   <% all_lessons.each do |lesson| %>
     <tr class="time"><td><%= lesson %></td><td colspan=6><hr /></td></tr>
     <tr><td />
-      <% week_days.each do |day| %>
-        <%= content_tag :td do %>
-          <%= check_box_tag "group[lessons][#{day}][#{lesson}]" %>
+        <% week_days.each do |day| %>
+          <%= content_tag :td do %>
+            <%= check_box_tag "group[lessons][#{day}][#{lesson}]" %>
+          <% end %>
         <% end %>
-      <% end %>
-    </tr>
+      </tr>
+    <% end %>
   <% end %>
-</tbody>
-</table>

@@ -1,0 +1,13 @@
+<table class="timetable">
+  <thead>
+    <tr>
+      <td />
+        <% week_days.each do |day| %>
+          <%= content_tag :th, day.capitalize %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= yield %>
+    </tbody>
+  </table>
