@@ -33,25 +33,24 @@ describe DisciplinesController do
                      "code" => "BC0001",
                      "tpi"  => "4-0-6"} end
 
-    let(:new_discipline) { mock_model('Discipline', params).as_null_object }
-
     before do
-      Discipline.stub(:new).and_return(new_discipline)
+      @new_discipline = Factory.build(:discipline)
+      Discipline.stub(:new).and_return(@new_discipline)
     end
 
     it "instantiates a new discipline with the provided parameters" do
-      Discipline.should_receive(:new).with(params).and_return(new_discipline)
+      Discipline.should_receive(:new).with(params).and_return(@new_discipline)
       post :create, :discipline => params
     end
 
     it "saves the created discipline" do
-      new_discipline.should_receive(:save)
       post :create, :discipline => params
+      @new_discipline.should_not be_new_record
     end
 
     context "when the discipline is saved successfully" do
       before do
-        new_discipline.stub(:save).and_return(true)
+        @new_discipline.stub(:save).and_return(true)
         post :create
       end
 
@@ -67,12 +66,12 @@ describe DisciplinesController do
 
     context "when the discipline fails to save" do
       before do
-        new_discipline.stub(:save).and_return(false)
+        @new_discipline.stub(:valid?).and_return false
         post :create, :discipline => params
       end
 
       it "sets an instance variable with the previous parameters" do
-        assigns[:discipline].should eq new_discipline
+        assigns[:discipline].should eq @new_discipline
       end
 
       it "sets an error flash message" do
@@ -89,11 +88,6 @@ describe DisciplinesController do
   describe "GET 'show'" do
     before { @params ||= {:id => 1} }
 
-    it "checks if the requested discipline ID exists" do
-      Discipline.should_receive(:exists?).with(@params[:id])
-      get :show, @params
-    end
-
     context "when the discipline exists" do
       before do
         Discipline.stub(:exists?).and_return true
@@ -109,7 +103,7 @@ describe DisciplinesController do
 
     context "when the discipline doesn't exist" do
       before do
-        Discipline.stub(:find).and_return nil
+        Discipline.stub(:find).and_raise ActiveRecord::RecordNotFound
         get :show, @params
       end
 

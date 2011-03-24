@@ -6,13 +6,12 @@ class DisciplinesController < ApplicationController
 
   def create
     @discipline = Discipline.new(params[:discipline])
-    if @discipline.save
-      flash[:notice] = "The discipline was saved successfully!"
-      redirect_to :action => 'index'
-    else
-      flash[:error] = "An error occurred when saving the discipline"
-      render 'new'
-    end
+    @discipline.save!
+    flash[:notice] = "The discipline was saved successfully!"
+    redirect_to :action => 'index'
+  rescue ActiveRecord::RecordInvalid
+    flash[:error] = "An error occurred when saving the discipline"
+    render 'new'
   end
 
   def index
@@ -21,11 +20,9 @@ class DisciplinesController < ApplicationController
 
   def show
     id = params[:id]
-    if Discipline.exists? id
-      @discipline = Discipline.find id
-    else
-      flash[:error] = "Discipline with id #{id} not found!"
-      redirect_to disciplines_path
-    end
+    @discipline = Discipline.find id
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Discipline with id #{id} not found!"
+    redirect_to disciplines_path
   end
 end
