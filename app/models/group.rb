@@ -5,9 +5,12 @@ class Group < ActiveRecord::Base
 
   belongs_to  :discipline
 
-  validates :name,       :presence => true
-  validates :discipline, :presence => true
-  validates :lessons,    :presence => true, :lesson_table => true
+  validates :name,          :presence => true, :uniqueness => {:scope   => :discipline_id,
+                                                               :message => "has been taken by another group on this discipline"}
+
+  validates :discipline_id, :presence => true, :uniqueness => {:scope => WEEK_DAYS.map { |day| 'int_'+day},
+                                                               :message => "already has another group with these lessons" }
+  validates :lessons,       :presence => true, :lesson_table => true
 
   def lessons=(lesson)
     lesson = {} unless lesson.respond_to? '[]'
