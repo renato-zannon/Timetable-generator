@@ -8,14 +8,17 @@ class GroupsController < ApplicationController
   end
 
   def create
-    group = Group.new(params[:group])
-    if group.save == true
-      flash[:notice] = "The group was created successfully!"
-      redirect_to group
-    else
-      flash[:error] = "There was an error while saving the group!"
-      render :action => :new
+    @group = Group.new(params[:group])
+    @group.save!
+    flash[:notice] = "The group was created successfully!"
+    redirect_to @group
+  rescue
+    flash[:error] = "There was an error while saving the group!"
+    #TODO: Research refactor! D:
+    @discipline_options = Discipline.all.map do |discipline|
+      ["#{discipline.code} - #{discipline.name}", discipline.id]
     end
+    render :action => :new
   end
 
   def show
