@@ -41,7 +41,7 @@ class Timetable
   end
 
   def valid?
-    if has_duplicated_disciplines? or has_group_collisions?
+    if has_duplicated_disciplines? or has_group_collisions? or groups.empty?
       return false
     else
       return true
@@ -51,7 +51,7 @@ class Timetable
   def score
     -windows
   end
-  
+
   def windows
     week_days.inject(0) do |sum, day|
       sum += windows_on(day)
