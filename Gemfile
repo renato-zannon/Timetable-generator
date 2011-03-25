@@ -9,5 +9,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'rspec-rails'
   gem 'webrat'
+  gem 'launchy'
+  gem 'database_cleaner'
   gem 'factory_girl_rails', ">=1.1beta"
 end
