@@ -1,10 +1,16 @@
 <%= form_tag generate_best_timetable_path, :method => :post do %>
-  <% @disciplines.each do |discipline| %>
-    <%= label_tag "disciplines_#{discipline.code}", "#{discipline.code} - #{discipline.name}" %>
-    <% [['required',false], ['optional',false], ['none', true]].each do |option| %>
-      <%= radio_button_tag "disciplines[#{discipline.code}]", option[0], option[1] -%>
-      <%= label_tag "disciplines[#{discipline.code}][#{option[0]}]", option[0] -%>
-    <% end -%><br />
-  <% end %>
+  <table id="disciplines_table">
+    <tr><td></td><% %w{necessária opcional nenhum}.each do |option| %>
+      <%= content_tag :td, option %>
+    <% end %></tr>
+    <% @disciplines.each do |discipline| %>
+      <tr>
+        <td><%= label_tag "disciplines_#{discipline.code}", "#{discipline.code} - #{discipline.name}" %></td>
+        <% [['required',false], ['optional',false], ['none', true]].each do |option| %>
+          <td><%= radio_button_tag "disciplines[#{discipline.code}]", option[0], option[1] -%></td>
+        <% end -%>
+      </tr>
+    <% end %>
+  </table>
   <%= submit_tag 'Submit' %>
 <% end %>

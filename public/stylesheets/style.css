@@ -12,6 +12,9 @@ a:hover {
   margin-right: auto;
 }
 
+h1 {
+  text-align: center
+}
 body {
   width: 700px;
   margin-left: auto;
@@ -20,7 +23,6 @@ body {
 
 #content {
   width: 100%;
-  text-align: center;
 }
 
 #title {
@@ -55,21 +57,88 @@ body {
 }
 
 #menu {
-  width: 100%;
+  width: 700px;
   list-style-type: none;
   padding: 0;
   border: 1px solid gray;
+  border-right: 0;
   height: 30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #menu li {
   float: left;
-  width: 140px;
+  width: 139px;
   line-height: 30px;
   text-align: center;
   border-right: 1px solid gray;
 }
 
 #menu li a{
+  display: block;
+}
+
+#disciplines_table tr td {
+  width: 80px;
+  text-align: center;
+}
+
+#disciplines_table tr td:first-child {
+  width: 500px;
+  text-align: left;
+}
+
+ul.cool_list {
+  width: 600px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.cool_list a{
+  display: block;
+  border: 1px solid black;
+  border-top: 0;
+  position: relative;
+  top: 1px;
+  border-collapse: collapse;
+}
+
+ul.cool_list a:first-child {
+  border-top: 1px solid black;
+}
+
+ul.cool_list .code, ul.cool_list .group, ul.cool_list .item{
+  width: 130px;
+  display: inline-block;
+  padding: 7px;
+  text-align: center;
+  border-right: 1px solid gray;
+}
+
+ul.cool_list .name{
+  margin: 0;
+  padding: 0 10px 0 10px;
+  width: 433px;
+  line-height: 30px;
+  display: inline-block;
+}
+
+ul.cool_list .group{
+ border-right: 0;
+ border-left: 1px solid gray;
+}
+
+ul.cool_list .item{
+  width: 100%;
+  border: 0;
+  margin: 0;
+}
+
+.timetable_div .ghost_timetable{
+  display: none;
+}
+
+.timetable_div:hover .ghost_timetable{
   display: block;
 }

@@ -1,6 +1,8 @@
-<ul>
-<% @disciplines.each do |discipline| %>
-  <li><%= link_to "#{discipline.code} - #{discipline.name} (#{discipline.tpi})", discipline %></li>
-<% end %>
+<ul class="cool_list centered">
+  <% @disciplines.each do |discipline| %>
+    <%= link_to discipline  do -%>
+        <li><span class="code"><%= discipline.code -%></span><span class="name"><%= discipline.name -%></span></li>
+    <% end %>
+  <% end %>
 </ul>
 <%= link_to "New discipline", new_discipline_path %>

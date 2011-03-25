@@ -1,8 +1,8 @@
-<table class="timetable">
+<table class="timetable centered">
   <thead>
     <tr>
       <td />
-        <% week_days.each do |day| %>
+        <% %w{Segunda Terça Quarta Quinta Sexta Sábado}.each do |day| %>
           <%= content_tag :th, day.capitalize %>
         <% end %>
       </tr>

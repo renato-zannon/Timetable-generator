@@ -1,3 +1,16 @@
-<% @timetables.each do |timetable| %>
-  <%= render 'shared/timetable', :timetable => timetable %>
+<% @timetables.take(5).each.with_index do |timetable, index| %>
+  <div class="timetable_div">
+    <%= content_tag :h2, "#{index+1}º melhor horário:" %>
+    <ul class="cool_list">
+      <% timetable.groups.each do |group| %>
+        <%= link_to group do -%>
+          <li><span class="name"><%="#{group.discipline.code} - #{group.discipline.name}"%></span><span class="group"><%= "(#{group.name})"%></span></li>
+        <% end %>
+    <% end %>
+    </ul>
+    <div class="ghost_timetable">
+      <%= render 'shared/timetable', :timetable => timetable %>
+    </div>
+  </div>
+  <hr />
 <% end %>
