@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe GroupsController do
 
-  let(:group) { mock_model('Group').as_new_record.as_null_object }
+  let(:group) { @group }
   let(:discipline) { double('Discipline') }
 
   before do
+      @group = Factory.build(:group)
       Group.stub(:new).and_return(group)
       Discipline.stub(:find).and_return discipline
   end
@@ -38,14 +39,9 @@ describe GroupsController do
       post :create, :group => group_params
     end
 
-    it "tries to save the group" do
-      group.should_receive(:save)
-      post :create, :group => group_params
-    end
-
     context "when the group is saved successfully" do
       before do
-        group.stub(:save).and_return true
+        group.stub(:valid?).and_return true
         post :create, :group => group_params
       end
 
@@ -60,7 +56,7 @@ describe GroupsController do
     end
     context "when the group fails to save" do
       before do
-        group.stub(:save).and_return false
+        group.stub(:valid?).and_return false
         post :create, :group => group_params
       end
 

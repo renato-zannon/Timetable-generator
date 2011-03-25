@@ -1,7 +1,9 @@
 <%= form_tag generate_best_timetable_path, :method => :post do %>
   <% @disciplines.each do |discipline| %>
     <%= label_tag     "disciplines_#{discipline.code}", "#{discipline.code} - #{discipline.name}" %>
-    <%= check_box_tag "disciplines[#{discipline.code}]" %><br />
+    <% [['required',false], ['optional',false], ['none', true]].each do |option| %>
+      <%= radio_button_tag "disciplines[#{discipline.code}]", option[0], option[1] -%>
+    <% end -%><br />
   <% end %>
   <%= submit_tag 'Submit' %>
 <% end %>

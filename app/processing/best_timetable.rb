@@ -1,27 +1,33 @@
+require 'clock_enumerator'
 class BestTimetable
+
+  attr_reader :disciplines
 
   def BestTimetable.generate(disciplines)
     return nil if disciplines.nil? or disciplines.empty?
-    all_groups = all_groups_from(disciplines)
-    valid_timetables = all_valid_timetables_from(all_groups, disciplines.count)
-    valid_timetables.sort_by(&:score).reverse
+    generator = BestTimetable.new(disciplines)
+    generator.timetables
+  end
+
+  def initialize(disciplines)
+    @disciplines = disciplines
+  end
+
+  def timetables
+    generated_timetables.select(&:valid?).sort_by(&:score).reverse
   end
 
   private
 
-  def BestTimetable.all_groups_from(disciplines)
-    return nil unless disciplines.respond_to? :inject
-    disciplines.inject([]) do |groups, discipline|
-      groups.concat  discipline.groups
+  def groups_array
+    disciplines.map do |discipline, option|
+      discipline.groups + (option == 'required' ? [] : [nil])
     end
   end
 
-  def BestTimetable.all_valid_timetables_from(groups, disciplines_count)
-    return nil unless groups.respond_to? :combination
-    groups.combination(disciplines_count).inject([]) do |timetables, comb|
-      timetable = Timetable.new(comb)
-      timetables << timetable if timetable.valid?
-      timetables
+  def generated_timetables
+    ClockEnumerator.new(groups_array).map do |groups|
+      Timetable.new groups.compact
     end
   end
 
