@@ -6,9 +6,6 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
     <div id="header">
       <ul id="menu">
         <li><%= link_to "Home", "/" %>
@@ -18,6 +15,9 @@
         <li><%= link_to "Sobre", "#" %></li>
       </ul>
     </div>
+    <% flash.each do |key, value| %>
+      <div class="flash <%= key %>"><%= value %></div>
+    <% end %>
     <div id="content" class="centered">
       <%= yield %>
     </div>

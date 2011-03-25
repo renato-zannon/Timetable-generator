@@ -142,3 +142,21 @@ ul.cool_list .item{
 .timetable_div:hover .ghost_timetable{
   display: block;
 }
+
+div.flash {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 10px 5px 10px 5px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.notice {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
