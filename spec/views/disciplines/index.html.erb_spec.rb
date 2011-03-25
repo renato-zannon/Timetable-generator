@@ -15,7 +15,7 @@ describe 'disciplines/index.html.erb' do
   it "lists every discipline" do
     render
     rendered.should have_selector("ul") do |list| 
-      list.should have_selector("li", :content => "#{@disciplines[0].code} - #{@disciplines[0].name} (#{@disciplines[0].tpi})")
+      list.should contain(/#{@disciplines[0].code}.*#{@disciplines[0].name}/)
     end
   end
   
