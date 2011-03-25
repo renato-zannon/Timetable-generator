@@ -1,3 +1,4 @@
+#encoding: utf-8
 class DisciplinesController < ApplicationController
 
   def new
@@ -7,10 +8,10 @@ class DisciplinesController < ApplicationController
   def create
     @discipline = Discipline.new(params[:discipline])
     @discipline.save!
-    flash[:notice] = "The discipline was saved successfully!"
+    flash[:notice] = "A disciplina foi salva com sucesso!"
     redirect_to :action => 'index'
   rescue ActiveRecord::RecordInvalid
-    flash[:error] = "An error occurred when saving the discipline"
+    flash[:error] = "Houve erros ao tentar salvar a disciplina"
     render 'new'
   end
 
@@ -22,7 +23,7 @@ class DisciplinesController < ApplicationController
     id = params[:id]
     @discipline = Discipline.find id
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = "Discipline with id #{id} not found!"
+    flash[:error] = "A disciplina com id #{id} não foi encontrada!"
     redirect_to disciplines_path
   end
 end

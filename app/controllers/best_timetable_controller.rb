@@ -1,3 +1,4 @@
+#encoding: utf-8
 class BestTimetableController < ApplicationController
   include BestTimetableHelper
 
@@ -7,11 +8,14 @@ class BestTimetableController < ApplicationController
 
   def generate
     if selected_codes.empty?
-      flash[:error] = "no discipline was selected!"
-      @disciplines = Discipline.all
-      render :new
+      flash[:error] = "Nenhuma disciplina foi selecionada!"
+      redirect_to :action => :new
     else
       @timetables = BestTimetable.generate Hash[chosen_disciplines]
+      if @timetables.nil? or @timetables.empty?
+        flash[:error] = "Não foi possível gerar nenhum horário! Seja menos restritivo e/ou cadastre mais turmas e tente novamente"
+        redirect_to :action => :new
+      end
     end
   end
 

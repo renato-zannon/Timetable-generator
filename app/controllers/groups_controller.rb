@@ -10,10 +10,10 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params[:group])
     @group.save!
-    flash[:notice] = "The group was created successfully!"
+    flash[:notice] = "A turma foi salva com sucesso!"
     redirect_to @group
   rescue
-    flash[:error] = "There was an error while saving the group!"
+    flash[:error] = "Houve erros ao tentar salvar a disciplina!"
     #TODO: Research refactor! D:
     @discipline_options = Discipline.all.map do |discipline|
       ["#{discipline.code} - #{discipline.name}", discipline.id]

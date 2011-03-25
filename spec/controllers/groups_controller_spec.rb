@@ -46,7 +46,7 @@ describe GroupsController do
       end
 
       it "sets a flash[:notice] message" do
-        flash[:notice].should =~ /success/
+        flash[:notice].should =~ /sucesso/
       end
 
       it "redirects to the new group's page" do
@@ -61,7 +61,7 @@ describe GroupsController do
       end
 
       it "sets a flash[:error] message" do
-        flash[:error].should =~ /error/
+        flash[:error].should =~ /erro/
       end
 
       it "renders the 'new Group' form" do

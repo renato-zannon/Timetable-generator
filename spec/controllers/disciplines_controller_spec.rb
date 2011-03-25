@@ -55,7 +55,7 @@ describe DisciplinesController do
       end
 
       it "sets a 'success' flash message" do
-        flash[:notice].should =~ /success/
+        flash[:notice].should =~ /sucesso/
       end
 
       it "redirects to the disciplines index page" do
@@ -75,7 +75,7 @@ describe DisciplinesController do
       end
 
       it "sets an error flash message" do
-        flash[:error].should =~ /error/
+        flash[:error].should =~ /erro/
       end
 
       it "renders the 'new' page" do
@@ -108,7 +108,7 @@ describe DisciplinesController do
       end
 
       it "sets an error flash message" do
-        flash[:error].should =~ /not found/
+        flash[:error].should =~ /encontrada/
       end
 
       it "redirects to the disciplines index page" do

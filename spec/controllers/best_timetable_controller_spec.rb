@@ -48,15 +48,11 @@ describe BestTimetableController do
       end
 
       it "sets a flash[error] message" do
-        flash[:error].should =~ /no discipline/
+        flash[:error].should =~ /nenhuma disciplina/i
       end
 
-      it "resets the @disciplines variable with all disciplines" do
-        assigns[:disciplines].should == Discipline.all
-      end
-
-      it "renders the 'new' action" do
-        response.should render_template :new
+      it "redirects to the 'new' action" do
+        response.should redirect_to :action => :new
       end
     end
 
