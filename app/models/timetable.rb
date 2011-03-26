@@ -57,7 +57,7 @@ class Timetable
   end
 
   def valid?
-    if has_duplicated_disciplines? or has_group_collisions? or groups.empty?
+    if has_group_collisions? or groups.empty?
       return false
     else
       return true

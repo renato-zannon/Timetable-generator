@@ -14,19 +14,22 @@ class BestTimetable
   end
 
   def timetables
-    generated_timetables.select(&:valid?).sort_by(&:score).reverse
+    generated_timetables.sort_by(&:score).reverse
   end
 
   private
 
   def groups_array
-    disciplines.map do |discipline, option|
+    @groups_array ||= disciplines.map do |discipline, option|
       discipline.groups + (option == 'required' ? [] : [nil])
     end
   end
 
   def generated_timetables
-    ClockEnumerator.new(groups_array).map do |groups|
+   enumerator = ClockEnumerator.new(groups_array) do |groups|
+     Timetable.new(groups.compact).valid?
+   end
+   enumerator.map do |groups|
       Timetable.new groups.compact
     end
   end
