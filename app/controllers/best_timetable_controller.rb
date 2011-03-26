@@ -10,8 +10,8 @@ class BestTimetableController < ApplicationController
     if selected_codes.empty?
       flash[:error] = "Nenhuma disciplina foi selecionada!"
       redirect_to :action => :new
-    elsif selected_codes.count>6
-      flash[:error] = "Por favor, selecione no máximo 6 disciplinas"
+    elsif selected_codes.count>7
+      flash[:error] = "Por favor, selecione no máximo 7 disciplinas"
       redirect_to :action => :new
     else
       @timetables = BestTimetable.generate Hash[chosen_disciplines]
@@ -26,9 +26,6 @@ class BestTimetableController < ApplicationController
 
   def selected_codes
     disciplines = params[:disciplines] || {}
-    disciplines.reject do |_, inclusion|
-      inclusion == 'none'
-    end
   end
 
   def chosen_disciplines
