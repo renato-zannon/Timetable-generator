@@ -1,11 +1,11 @@
 class Discipline < ActiveRecord::Base
   
   TPI_REGEX = /^(\d{1,2})-(\d{1,2})-(\d{1,2})$/
-  CODE_REGEX = /\A(BC|MC|NH|EN)(\d{4})\Z$/
+  CODE_REGEX = /\A(BC|MC|NH|EN|BH|CS)(\d{4})\Z$/
   
-  validates :tpi,  :format   => TPI_REGEX,  :presence => true
+  #validates :tpi,  :format   => TPI_REGEX,  :presence => true
   validates :code, :format   => CODE_REGEX, :presence => true, :uniqueness => true
-  validates :name, :length   => 1..50,      :presence => true
+  validates :name, :length   => 1..70,      :presence => true
 
   has_many :groups
   

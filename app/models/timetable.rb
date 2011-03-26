@@ -26,7 +26,7 @@ class Timetable
     end
     return false
   end
- 
+
   def lessons_table
     first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson) }-1
     last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson) }+1
@@ -75,7 +75,7 @@ class Timetable
   end
 
   def windows_on(day)
-    complete_table = all_lessons.take_while { |lesson| self.has_lessons_after(lesson, :day => day) }
+    complete_table = all_lessons.select { |lesson| has_lessons_after(lesson, :day => day) && has_lessons_before(lesson, :day => day) }
     complete_table.reject { |lesson| lessons_on(day).include?(lesson) }.count/2.0
   end
 
