@@ -1,4 +1,4 @@
-<%= form_tag generate_best_timetable_path, :method => :post do %>
+<%= form_tag generate_best_timetable_path, :method => :get do %>
   <table id="disciplines_table">
     <tr><td></td><% %w{necessária opcional}.each do |option| %>
       <%= content_tag :td, option %>
