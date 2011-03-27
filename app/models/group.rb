@@ -8,7 +8,7 @@ class Group < ActiveRecord::Base
   validates :name,          :presence => true, :uniqueness => {:scope   => :discipline_id,
                                                                :message => "has been taken by another group on this discipline"}
 
-  validates :discipline_id, :presence => true, :uniqueness => {:scope => WEEK_DAYS.map { |day| 'int_'+day},
+  validates :discipline_id, :presence => true, :uniqueness => {:scope => WEEK_DAYS.map { |day| 'int_'+day.to_s},
                                                                :message => "already has another group with these lessons" }
   validates :lessons,       :presence => true, :lesson_table => true
 

@@ -3,7 +3,7 @@ class IntTools
 
   def self.int_from_lesson(lesson)
     @int_from_lesson ||= {}
-    @int_from_lesson[lesson] ||= 2**(ALL_LESSONS.index(lesson))
+    @int_from_lesson[lesson.to_sym] ||= 2**(ALL_LESSONS.index(lesson.to_sym))
   end
 
   def self.lesson_from_int(int)

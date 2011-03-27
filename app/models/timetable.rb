@@ -27,6 +27,19 @@ class Timetable
     return false
   end
 
+  def week_amplitude
+    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson, :days => week_days-[:saturday]) }
+    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson, :days => week_days-[:saturday]) }
+    last_lesson_idx - first_lesson_idx
+  end
+
+  def saturday_amplitude
+    return 0 if int_for(:saturday) == 0
+    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson, :day => :saturday) }
+    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson, :day => :saturday) }
+    last_lesson_idx - first_lesson_idx
+  end
+
   def lessons_table
     first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson) }-1
     last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson) }+1
@@ -34,7 +47,8 @@ class Timetable
   end
 
   def lessons_on(day)
-    IntTools.lessons_from_int(int_for(day))
+    @lessons_on ||= {}
+    @lessons_on[day] ||= IntTools.lessons_from_int(int_for(day))
   end
 
   def int_for(day)
@@ -66,7 +80,7 @@ class Timetable
   end
 
   def score
-    -windows
+    -(5*week_amplitude+2*saturday_amplitude)
   end
 
   def windows
@@ -77,12 +91,15 @@ class Timetable
 
   def windows_on(day)
     @windows_on ||= {}
-    @windows_on[day] ||= complete_table(day).reject { |lesson| (int_for(day) & IntTools.int_from_lesson(lesson)) != 0 }.count/2.0
+    @windows_on[day] ||= (complete_table(day).count - lessons_on(day).count)/2.0
   end
 
   def complete_table(day)
+    @complete_table[day] unless @complete_table.nil? || @complete_table[day].nil?
     @complete_table ||= {}
-    @complete_table[day] ||= all_lessons.select { |lesson| has_lessons_after(lesson, :day => day) && has_lessons_before(lesson, :day => day) }
+    first_lesson_idx = all_lessons.index(lessons_on(day).first)
+    last_lesson_idx = all_lessons.rindex(lessons_on(day).last)
+    @complete_table[day] ||= all_lessons[first_lesson_idx..last_lesson_idx] rescue []
   end
 
   private
@@ -107,7 +124,13 @@ class Timetable
   end
 
   def extract_days_from(options)
-    options[:day] ? [options[:day]] :  WEEK_DAYS
+    if options[:day]
+      [options[:day]]
+    elsif options[:days]
+      options[:days]
+    else
+      WEEK_DAYS
+    end
   end
 
 end
