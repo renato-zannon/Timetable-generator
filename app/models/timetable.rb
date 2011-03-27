@@ -30,7 +30,7 @@ class Timetable
   def week_amplitude
     first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson, :days => week_days-[:saturday]) }
     last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson, :days => week_days-[:saturday]) }
-    last_lesson_idx - first_lesson_idx
+    last_lesson_idx - first_lesson_idx rescue 0
   end
 
   def saturday_amplitude
