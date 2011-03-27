@@ -26,11 +26,14 @@ class BestTimetable
   end
 
   def generated_timetables
-   enumerator = ClockEnumerator.new(groups_array) do |groups|
+    validation = ->groups do
      return true if groups.count<2
+     return true if groups[-2].nil? or groups[-1].nil?
      !groups[-2].collides_with?(groups[-1])
-   end
-   enumerator.map do |groups|
+    end
+
+   enumerator = ClockEnumerator.new(groups_array, &validation)
+   enumerator.all.map do |groups|
       Timetable.new groups.compact
     end
   end

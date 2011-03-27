@@ -11,7 +11,7 @@ class Timetable
 
   def has_lessons_after(lesson, options = {})
     days = extract_days_from(options)
-    lesson_int = IntTools.int_from_lesson(lesson) 
+    lesson_int = IntTools.int_from_lesson(lesson)
     days.each do |day|
       return true if lesson_int < int_for(day)
     end
@@ -38,7 +38,8 @@ class Timetable
   end
 
   def int_for(day)
-    @groups.inject(0) do |sum, group|
+    @int_for ||= {}
+    @int_for[day] ||= @groups.inject(0) do |sum, group|
       sum = (sum | group.send("int_#{day}"))
     end
   end
@@ -69,14 +70,19 @@ class Timetable
   end
 
   def windows
-    week_days.inject(0) do |sum, day|
+    @windows ||= week_days.inject(0) do |sum, day|
       sum += windows_on(day)
     end
   end
 
   def windows_on(day)
-    complete_table = all_lessons.select { |lesson| has_lessons_after(lesson, :day => day) && has_lessons_before(lesson, :day => day) }
-    complete_table.reject { |lesson| lessons_on(day).include?(lesson) }.count/2.0
+    @windows_on ||= {}
+    @windows_on[day] ||= complete_table(day).reject { |lesson| (int_for(day) & IntTools.int_from_lesson(lesson)) != 0 }.count/2.0
+  end
+
+  def complete_table(day)
+    @complete_table ||= {}
+    @complete_table[day] ||= all_lessons.select { |lesson| has_lessons_after(lesson, :day => day) && has_lessons_before(lesson, :day => day) }
   end
 
   private
@@ -101,13 +107,7 @@ class Timetable
   end
 
   def extract_days_from(options)
-    if options.has_key? :days
-      options[:days]
-    elsif options.has_key? :day
-      [options[:day]]
-    else
-      WEEK_DAYS
-    end
+    options[:day] ? [options[:day]] :  WEEK_DAYS
   end
 
 end

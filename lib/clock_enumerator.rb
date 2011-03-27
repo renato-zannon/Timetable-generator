@@ -18,7 +18,7 @@ class ClockEnumerator
     return (@all = @arrays.flatten.zip) if @arrays.count==1
 
     @all = @arrays[0].dup
-    (1...@arrays.length).to_a.each do |num|
+    (1...@arrays.length).each do |num|
       @all = @all.product(@arrays[num]).map(&:flatten).select { |array| valid?(array) }
     end
     @all
