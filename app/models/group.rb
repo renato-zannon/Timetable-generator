@@ -27,6 +27,14 @@ class Group < ActiveRecord::Base
     end
   end
 
+  def collides_with?(group)
+    week_days.each do |day|
+      message = "int_#{day}".to_sym
+      return true unless (send(message) & group.send(message))==0
+    end
+    return false
+  end
+
   private
 
   def day_hash_to_array(day_hash)
