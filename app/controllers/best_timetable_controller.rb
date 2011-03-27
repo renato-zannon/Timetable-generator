@@ -2,6 +2,7 @@
 class BestTimetableController < ApplicationController
   include BestTimetableHelper
 
+  caches_action :new
   def new
     @disciplines = Discipline.all
   end

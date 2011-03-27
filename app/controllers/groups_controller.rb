@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
 
+  caches_action :index
   def new
     @group = Group.new(:discipline_id => params[:discipline_id])
     @discipline_options = Discipline.all.map do |discipline|
@@ -11,6 +12,7 @@ class GroupsController < ApplicationController
     @group = Group.new(params[:group])
     @group.save!
     flash[:notice] = "A turma foi salva com sucesso!"
+    expire_action :action => :index
     redirect_to @group
   rescue
     flash[:error] = "Houve erros ao tentar salvar a disciplina!"

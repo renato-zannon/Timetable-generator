@@ -1,6 +1,7 @@
 #encoding: utf-8
 class DisciplinesController < ApplicationController
 
+  caches_action :index
   def new
     @discipline = Discipline.new
   end
@@ -9,6 +10,7 @@ class DisciplinesController < ApplicationController
     @discipline = Discipline.new(params[:discipline])
     @discipline.save!
     flash[:notice] = "A disciplina foi salva com sucesso!"
+    expire_action :action => :index
     redirect_to :action => 'index'
   rescue ActiveRecord::RecordInvalid
     flash[:error] = "Houve erros ao tentar salvar a disciplina"
