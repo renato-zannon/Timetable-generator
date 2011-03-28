@@ -53,7 +53,7 @@ class Timetable
 
   def int_for(day)
     @int_for ||= {}
-    @int_for[day] ||= @groups.inject(0) do |sum, group|
+    @int_for[day.to_sym] ||= @groups.inject(0) do |sum, group|
       sum = (sum | group.send("int_#{day}"))
     end
   end

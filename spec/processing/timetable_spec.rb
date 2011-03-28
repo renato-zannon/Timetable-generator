@@ -21,15 +21,15 @@ describe Timetable do
       end
     end
 
-#    context "when given various daya" do
-#      it "returns true if there's a lesson after the given on all given days" do
-#        @timetable.has_lessons_after(:"08:00",:days => [:"monday",:"saturday"]).should be_true
-#      end
-#
-#      it "returns false if there's no lesson after the given on any given days" do
-#        @timetable.has_lessons_after(:"10:00",:days => [:"monday",:"friday"]).should be_false
-#      end
-#    end
+    context "when given various days" do
+      it "returns true if there's a lesson after the given on all given days" do
+        @timetable.has_lessons_after(:"08:00",:days => [:"monday",:"saturday"]).should be_true
+      end
+
+      it "returns false if there's no lesson after the given on any given days" do
+        @timetable.has_lessons_after(:"10:00",:days => [:"monday",:"friday"]).should be_false
+      end
+    end
 
     context "when no day is given" do
       it "returns true if there's a lesson after on any day" do

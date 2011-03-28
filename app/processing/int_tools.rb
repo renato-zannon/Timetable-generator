@@ -1,15 +1,17 @@
+require 'group_constants'
 class IntTools
-  include GroupConstants
+
+  def self.all_lessons
+    @all_lessons ||= Hash[GroupConstants::ALL_LESSONS.map.with_index { |l, idx| [l, 2**idx] }]
+  end
 
   def self.int_from_lesson(lesson)
-    @int_from_lesson ||= {}
-    @int_from_lesson[lesson.to_sym] ||= 2**(ALL_LESSONS.index(lesson.to_sym))
+    all_lessons[lesson]
   end
 
   def self.lesson_from_int(int)
     return nil if int<=0
-    @lesson_from_int ||= {}
-    @lesson_from_int[int] ||= ALL_LESSONS[(Math.log2 int).round]
+    all_lessons[int.to_s(2).size]
   end
 
   def self.int_from_lessons(lessons_array)
@@ -18,7 +20,8 @@ class IntTools
   end
 
   def self.lessons_from_int(int)
-    ALL_LESSONS.select.with_index { |lesson, idx| lesson_from_int(int & 2**idx) }
+    @lessons_from_int ||= {}
+    @lessons_from_int[int] ||= all_lessons.reject { |lesson, int_lesson, idx| (int_lesson<=int) && (int_lesson & int)==0 }
   end
 
 end
