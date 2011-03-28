@@ -11,7 +11,7 @@ class IntTools
   end
 
   def self.int_from_lesson(lesson)
-    all_lessons[lesson]
+    all_lessons[lesson] || 0
   end
 
   def self.lesson_from_int(int)

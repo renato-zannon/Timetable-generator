@@ -44,9 +44,9 @@ class Timetable
   end
 
   def lessons_table
-    first_lesson_idx = [week_lessons.first, lessons[:saturday].first || :"22:00"].map { |l| IntTools.index_for_lesson(l)}.min+1
-    last_lesson_idx =  [week_lessons.last, lessons[:saturday].last || :"08:00"].map { |l| IntTools.index_for_lesson(l)}.max-1
-    all_lessons[first_lesson_idx..last_lesson_idx]
+    first_lesson_idx = [week_lessons.first, lessons[:saturday].first || :"22:00"].map { |l| IntTools.index_for_lesson(l)}.min
+    last_lesson_idx =  [week_lessons.last, lessons[:saturday].last || :"08:00"].map { |l| IntTools.index_for_lesson(l)}.max+1
+    (all_lessons+['23:00'])[first_lesson_idx..last_lesson_idx]
   end
 
   def lessons_on(day)
