@@ -12,4 +12,6 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'factory_girl_rails', ">=1.1beta"
+  gem 'ruby-debug19'
+  gem 'ruby-prof'
 end
