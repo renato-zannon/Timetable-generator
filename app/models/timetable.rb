@@ -27,22 +27,25 @@ class Timetable
     return false
   end
 
-  def week_amplitude
-    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson, :days => week_days-[:saturday]) }
-    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson, :days => week_days-[:saturday]) }
-    last_lesson_idx - first_lesson_idx rescue 0
+  def week_lessons
+    @week_lessons ||= IntTools.lessons_from_int week_days.inject(0) { |sum, day| sum = sum | int_for(day) }
   end
 
-  def saturday_amplitude
-    return 0 if int_for(:saturday) == 0
-    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson, :day => :saturday) }
-    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson, :day => :saturday) }
+  def week_amplitude
+    first_lesson_idx = IntTools.index_for_lesson(week_lessons.first)
+    last_lesson_idx = IntTools.index_for_lesson(week_lessons.last)
     last_lesson_idx - first_lesson_idx
   end
 
+  def saturday_amplitude
+    first_lesson_idx = IntTools.index_for_lesson(lessons[:saturday].first)
+    last_lesson_idx = IntTools.index_for_lesson(lessons[:saturday].last)
+    last_lesson_idx - first_lesson_idx rescue 0
+  end
+
   def lessons_table
-    first_lesson_idx = all_lessons.index { |lesson| has_lessons_before(lesson) }-1
-    last_lesson_idx = all_lessons.rindex { |lesson| has_lessons_after(lesson) }+1
+    first_lesson_idx = lessons.first
+    last_lesson_idx = lessons.last
     all_lessons[first_lesson_idx..last_lesson_idx]
   end
 
@@ -65,6 +68,13 @@ class Timetable
   def group_on(day, lesson)
     return nil unless has_group_on(day,lesson)
     groups.find { |group| group.lessons[day].include? lesson}
+  end
+
+  def lessons
+    return @lessons unless @lessons.nil?
+    @lessons = week_days.inject({}) do |hash, day|
+      hash.merge({day => lessons_on(day)})
+    end
   end
 
   def groups=(groups)
@@ -97,8 +107,8 @@ class Timetable
   def complete_table(day)
     @complete_table[day] unless @complete_table.nil? || @complete_table[day].nil?
     @complete_table ||= {}
-    first_lesson_idx = all_lessons.index(lessons_on(day).first)
-    last_lesson_idx = all_lessons.rindex(lessons_on(day).last)
+    first_lesson_idx = IntTools.index_for_lesson(lessons_on(day).first)
+    last_lesson_idx = IntTools.index_for_lesson(lessons_on(day).last)
     @complete_table[day] ||= all_lessons[first_lesson_idx..last_lesson_idx] rescue []
   end
 
