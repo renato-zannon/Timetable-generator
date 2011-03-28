@@ -28,7 +28,7 @@ class Timetable
   end
 
   def week_lessons
-    @week_lessons ||= IntTools.lessons_from_int week_days.inject(0) { |sum, day| sum = sum | int_for(day) }
+    @week_lessons ||= IntTools.lessons_from_int (week_days - [:saturday]).inject(0) { |sum, day| sum = sum | int_for(day) }
   end
 
   def week_amplitude
@@ -44,8 +44,8 @@ class Timetable
   end
 
   def lessons_table
-    first_lesson_idx = lessons.first
-    last_lesson_idx = lessons.last
+    first_lesson_idx = [week_lessons.first, lessons[:saturday].first || :"22:00"].map { |l| IntTools.index_for_lesson(l)}.min+1
+    last_lesson_idx =  [week_lessons.last, lessons[:saturday].last || :"08:00"].map { |l| IntTools.index_for_lesson(l)}.max-1
     all_lessons[first_lesson_idx..last_lesson_idx]
   end
 

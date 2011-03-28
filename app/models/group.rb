@@ -41,4 +41,8 @@ class Group < ActiveRecord::Base
     day_hash.reject{ |_, v| v.to_i==0 }.keys
   end
 
+  def to_ary
+    nil
+  end
+
 end
