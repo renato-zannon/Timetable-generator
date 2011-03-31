@@ -26,13 +26,23 @@ class BestTimetable
   end
 
   def generated_timetables
-    validation = ->groups do
-      Timetable.new(groups.compact).valid?
-    end
+    groups_array[0].inject([]) do |results, initial_group|
+      results.concat _generate_timetables_recursive([initial_group], groups_array[1..-1])
+    end.map { |groups| Timetable.new(groups.compact) }
+  end
 
-    enumerator = ClockEnumerator.new(groups_array, &validation)
-    enumerator.all.map do |groups|
-      Timetable.new groups.compact
+  def generates_valid_timetable?(groups)
+    return false if groups.nil? or groups.empty?
+    Timetable.new(groups.compact).valid?
+  end
+
+  def _generate_timetables_recursive(current, pool)
+    return [current] if pool.nil? or pool.empty?
+
+    pool[0].inject([]) do |results, group|
+      new_pool = pool[1..-1].dup
+      generated = _generate_timetables_recursive(current+[group], new_pool)
+      results.concat generated.select { |groups| generates_valid_timetable?(groups) }
     end
   end
 
