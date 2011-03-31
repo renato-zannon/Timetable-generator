@@ -26,7 +26,7 @@ class BestTimetable
   end
 
   def generated_timetables
-    groups_array[0].inject([]) do |results, initial_group|
+    @generates_timetables ||= groups_array[0].inject([]) do |results, initial_group|
       results.concat _generate_timetables_recursive([initial_group], groups_array[1..-1])
     end.map { |groups| Timetable.new(groups.compact) }
   end
