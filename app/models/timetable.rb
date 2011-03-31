@@ -34,7 +34,7 @@ class Timetable
   def week_amplitude
     first_lesson_idx = IntTools.index_for_lesson(week_lessons.first)
     last_lesson_idx = IntTools.index_for_lesson(week_lessons.last)
-    last_lesson_idx - first_lesson_idx
+    last_lesson_idx - first_lesson_idx rescue 0
   end
 
   def saturday_amplitude
